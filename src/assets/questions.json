@@ -1,0 +1,14 @@
+[
+    { "question": "Who built the ark?", "options": ["Noah", "Moses", "Abraham", "David"], "answer": "Noah", "difficulty": 1 },
+    { "question": "Where was Jesus born?", "options": ["Nazareth", "Bethlehem", "Jerusalem", "Galilee"], "answer": "Bethlehem", "difficulty": 1 },
+    { "question": "Who received the Ten Commandments?", "options": ["Moses", "Aaron", "Joshua", "Joseph"], "answer": "Moses", "difficulty": 1 },
+    { "question": "Who was swallowed by a great fish?", "options": ["Jonah", "Daniel", "Elijah", "Elisha"], "answer": "Jonah", "difficulty": 2 },
+    { "question": "Who led the Israelites into the Promised Land?", "options": ["Moses", "Aaron", "Joshua", "Caleb"], "answer": "Joshua", "difficulty": 2 },
+    { "question": "Who was the first king of Israel?", "options": ["Saul", "David", "Solomon", "Samuel"], "answer": "Saul", "difficulty": 2 },
+    { "question": "Who was the strongest man in the Bible?", "options": ["Samson", "David", "Solomon", "Abraham"], "answer": "Samson", "difficulty": 3 },
+    { "question": "Who interpreted Pharaoh's dreams?", "options": ["Joseph", "Daniel", "Moses", "Aaron"], "answer": "Joseph", "difficulty": 3 },
+    { "question": "What is the longest book in the Bible?", "options": ["Psalms", "Isaiah", "Genesis", "Exodus"], "answer": "Psalms", "difficulty": 3 },
+    { "question": "Who was thrown into the lion's den?", "options": ["Daniel", "Joseph", "David", "Moses"], "answer": "Daniel", "difficulty": 4 }
+    
+  ]
+  

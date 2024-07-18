@@ -1,0 +1,7 @@
+<div *ngIf="question">
+  <h3>{{ question.question }}</h3>
+  <div *ngFor="let option of question.options">
+    <button (click)="onAnswer(option)">{{ option }}</button>
+  </div>
+</div>
+  

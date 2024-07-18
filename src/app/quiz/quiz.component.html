@@ -1,0 +1,18 @@
+<div *ngIf="!showResult">
+  <h2>Serbisyong Kapatiran: Ang Pagsasanay</h2>
+  <div *ngIf="questions.length > 0">
+    <h3>{{ questions[currentQuestionIndex].question }}</h3>
+    <p>Difficulty: {{ questions[currentQuestionIndex].difficulty }}</p>
+    <div *ngFor="let option of questions[currentQuestionIndex].options">
+      <button (click)="onAnswer(option)">{{ option }}</button>
+    </div>
+  </div>
+  <div *ngIf="questions.length === 0">
+    <p>Loading questions...</p>
+  </div>
+</div>
+<div *ngIf="showResult">
+  <h2>Your Score: {{ score }}/{{ questions.length }}</h2>
+  <button (click)="restart()">Restart Quiz</button>
+</div>
+  
