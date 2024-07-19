@@ -1,27 +1,24 @@
-# Quiz
+# Angular Quiz Application with Node.js API
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.1.
+This project is a quiz application built with Angular and a Node.js backend API. The application allows users to select different topics, answer quiz questions, and track their progress.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Select from multiple quiz topics
+- Answer quiz questions with multiple choice options
+- Track progress for each topic
+- Dynamic question selection and shuffling
+- API to serve quiz questions
 
-## Code scaffolding
+## Prerequisites
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Node.js (v18.19 or later)
+- Angular CLI (v15.0.0 or later)
 
-## Build
+## Getting Started
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Clone the Repository
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```sh
+git clone https://github.com/kennjaramilla/quiz-bee.git
+cd quiz-bee
