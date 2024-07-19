@@ -1,6 +1,8 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuizService } from '../quiz.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-result',
@@ -8,19 +10,26 @@ import { QuizService } from '../quiz.service';
   styleUrls: ['./result.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResultComponent implements OnInit {
+export class ResultComponent implements OnDestroy {
   @Input() score: number = 0;
   @Input() totalQuestions: number = 0;
   @Input() topic: string = '';
   @Output() restart = new EventEmitter<void>();
   @Output() topicSelected = new EventEmitter<string>();
   suggestedTopics: string[] = [];
+  private unsubscribe$ = new Subject<void>();
 
-  constructor(private quizService: QuizService, private router: Router) {}
+  constructor(
+    private readonly quizService: QuizService, 
+    private readonly router: Router,
+    private readonly changeDetection: ChangeDetectorRef
+  ) { 
+    this.subscribeToSuggestedTopics();
+  }
 
-  ngOnInit(): void {
-    this.suggestedTopics = this.quizService.getTopics().filter(t => t !== this.topic);
-    this.quizService.saveProgress(this.topic, this.score, this.totalQuestions);
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   onRestart() {
@@ -48,5 +57,17 @@ export class ResultComponent implements OnInit {
 
   getProgress(topic: string): number {
     return this.quizService.getProgressByTopic(topic);
+  }
+
+  private subscribeToSuggestedTopics() {
+    this.quizService.getTopics()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((topics: string[]) => {
+        this.changeDetection.markForCheck();
+        
+        this.suggestedTopics = topics.filter(t => t !== this.topic);
+      });
+
+    this.quizService.saveProgress(this.topic, this.score, this.totalQuestions);
   }
 }

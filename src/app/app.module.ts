@@ -7,6 +7,7 @@ import { QuizComponent } from './quiz/quiz.component';
 import { QuestionComponent } from './question/question.component';
 import { ResultComponent } from './result/result.component';
 import { TopicSelectionComponent } from './topic-selection/topic-selection.component';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { TopicSelectionComponent } from './topic-selection/topic-selection.compo
     BrowserAnimationsModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [provideHttpClient(withInterceptorsFromDi())],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

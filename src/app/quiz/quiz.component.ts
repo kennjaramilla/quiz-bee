@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../quiz.service';
 import { Question } from '../question.model';
@@ -28,7 +28,12 @@ export class QuizComponent implements OnInit {
   topic: string = '';
   feedbackMessage: string = '';
 
-  constructor(private quizService: QuizService, private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private readonly quizService: QuizService, 
+    private readonly route: ActivatedRoute, 
+    private readonly router: Router,
+    private readonly changeDetection: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.topic = this.route.snapshot.paramMap.get('topic')!;
@@ -37,6 +42,8 @@ export class QuizComponent implements OnInit {
 
   loadQuestions(topic: string): void {
     this.quizService.getQuestionsByTopic(topic).subscribe((questions: Question[]) => {
+      this.changeDetection.markForCheck();
+      
       this.questions = questions;
       this.resetQuiz();
     });
