@@ -14,5 +14,5 @@
   ></app-question>
 </div>
 <div *ngIf="showResult">
-  <app-result [score]="score" [totalQuestions]="questions.length" (restart)="restart()" (topicSelected)="selectTopic($event)"></app-result>
+  <app-result [score]="score" [totalQuestions]="questions.length" [topic]="topic" (restart)="restart()" (topicSelected)="selectTopic($event)"></app-result>
 </div>

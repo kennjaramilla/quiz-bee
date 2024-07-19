@@ -107,14 +107,15 @@ export class QuizService {
 
   getQuestionsByTopic(topic: string): Observable<Question[]> {
     return of(this.questions.filter(q => q.topic === topic)).pipe(
-      map((questions: Question[]) => this.shuffleAndSelectQuestions(questions))
+      map((questions: Question[]) => this.shuffleAndSelectQuestions(questions)),
+      map((questions: Question[]) => questions.map(q => this.shuffleOptions(q)))
     );
   }
 
   getProgressByTopic(topic: string): number {
     if (typeof localStorage !== 'undefined') {
       const progress = localStorage.getItem(`progress_${topic}`);
-      console.log(`Retrieved progress for ${topic}:`, progress);
+      console.log(`Retrieved progress for ${topic}:`, progress); // Debug statement
       return progress ? parseInt(progress, 10) : 0;
     }
     return 0;
@@ -124,7 +125,7 @@ export class QuizService {
     if (typeof localStorage !== 'undefined') {
       const progress = Math.round((score / totalQuestions) * 100);
       localStorage.setItem(`progress_${topic}`, progress.toString());
-      console.log(`Saved progress for ${topic}:`, progress);
+      console.log(`Saved progress for ${topic}:`, progress); // Debug statement
     }
   }
 
@@ -134,7 +135,12 @@ export class QuizService {
     return selectedQuestions.sort((a, b) => a.difficulty - b.difficulty);
   }
 
-  private shuffle(array: Question[]): Question[] {
+  private shuffleOptions(question: Question): Question {
+    const shuffledOptions = this.shuffle(question.options.slice());
+    return { ...question, options: shuffledOptions };
+  }
+
+  private shuffle(array: any[]): any[] {
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
