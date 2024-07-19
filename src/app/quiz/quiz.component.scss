@@ -1,54 +1,65 @@
-:host {
-  display: block;
+.progress-bar-container {
+  height: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #007BFF;
+  transition: width 0.5s;
+}
+
+.progress-percentage {
+  position: absolute;
+  right: 10px;
+  top: -25px;
+  font-size: 14px;
+  color: #007BFF;
+}
+
+.difficulty {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.feedback-message {
+  margin-bottom: 20px;
+  font-size: 1.2em;
+  color: green;
   text-align: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #ecf0f1;
-  color: #2c3e50;
 }
-  
-h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-  color: #2980b9;
+
+.question {
+  font-size: 1.2em;
+  margin-bottom: 10px;
 }
-  
-h3 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  color: #3498db;
+
+.options {
+  display: flex;
+  flex-direction: column;
 }
-  
-p {
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  color: #7f8c8d;
-}
-  
-button {
-  display: block;
-  width: 100%;
-  max-width: 300px;
-  margin: 0.5rem auto;
-  padding: 0.8rem 1.5rem;
-  font-size: 1.1rem;
-  color: #fff;
-  background-color: #3498db;
-  border: none;
+
+.option {
+  margin: 5px 0;
+  padding: 10px;
+  background-color: #f0f8ff;
+  border: 1px solid #007BFF;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  
+  transition: background-color 0.2s, color 0.2s;
+
   &:hover {
-    background-color: #2980b9;
-  }
-  
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.5);
+    background-color: #007BFF;
+    color: white;
   }
 }
-  
-div {
-  margin-bottom: 2rem;
+
+.progress {
+  margin-top: 20px;
+  font-size: 0.9em;
+  color: #666;
 }
-  

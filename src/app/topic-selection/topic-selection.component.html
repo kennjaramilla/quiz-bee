@@ -1,0 +1,9 @@
+<div class="topic-selection">
+    <h1>Select a Topic</h1>
+    <div class="topics-grid">
+      <div class="topic-tile" *ngFor="let topic of topics" (click)="selectTopic(topic.name)">
+        {{ topic.name }} - Progress: {{ topic.progress }}%
+      </div>
+    </div>
+  </div>
+  

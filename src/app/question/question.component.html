@@ -1,7 +1,14 @@
-<div *ngIf="question">
-  <h3>{{ question.question }}</h3>
-  <div *ngFor="let option of question.options">
-    <button (click)="onAnswer(option)">{{ option }}</button>
+<div *ngIf="question" @slideIn>
+  <div class="question-container">
+    <div class="question">{{ question.question }}</div>
+    <div class="difficulty">Difficulty: {{ question.difficulty }}</div>
+    <div class="options">
+      <button class="option" *ngFor="let option of question.options" (click)="onAnswer(option)">
+        {{ option }}
+      </button>
+    </div>
+    <div class="progress">
+      Question {{ currentQuestionIndex ? currentQuestionIndex + 1 : 0 }} of {{ totalQuestions ? totalQuestions : 0 }}
+    </div>
   </div>
 </div>
-  

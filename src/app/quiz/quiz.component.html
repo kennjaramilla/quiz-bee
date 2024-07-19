@@ -1,18 +1,18 @@
 <div *ngIf="!showResult">
-  <h2>Serbisyong Kapatiran: Ang Pagsasanay</h2>
-  <div *ngIf="questions.length > 0">
-    <h3>{{ questions[currentQuestionIndex].question }}</h3>
-    <p>Difficulty: {{ questions[currentQuestionIndex].difficulty }}</p>
-    <div *ngFor="let option of questions[currentQuestionIndex].options">
-      <button (click)="onAnswer(option)">{{ option }}</button>
-    </div>
+  <div class="progress-bar-container">
+    <div class="progress-bar" [style.width.%]="progress"></div>
+    <div class="progress-percentage">{{ progress | number: '1.0-0' }}%</div>
   </div>
-  <div *ngIf="questions.length === 0">
-    <p>Loading questions...</p>
-  </div>
+  <div *ngIf="feedbackMessage" class="feedback-message" @slideIn>{{ feedbackMessage }}</div>
+  <app-question
+    *ngIf="currentQuestionIndex < questions.length"
+    [question]="questions[currentQuestionIndex]"
+    [currentQuestionIndex]="currentQuestionIndex"
+    [totalQuestions]="questions.length"
+    (answered)="onAnswer($event)"
+    @slideIn
+  ></app-question>
 </div>
 <div *ngIf="showResult">
-  <h2>Your Score: {{ score }}/{{ questions.length }}</h2>
-  <button (click)="restart()">Restart Quiz</button>
+  <app-result [score]="score" [totalQuestions]="questions.length" (restart)="restart()" (topicSelected)="selectTopic($event)"></app-result>
 </div>
-  

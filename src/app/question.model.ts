@@ -3,5 +3,6 @@ export interface Question {
   readonly options: string[];
   readonly answer: string;
   readonly difficulty: number;
+  readonly topic: string;
 };
   

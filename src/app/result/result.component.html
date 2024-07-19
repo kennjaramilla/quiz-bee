@@ -1,5 +1,21 @@
-<div>
-  <h2>Your Score: {{ score }}/{{ totalQuestions }}</h2>
-  <button (click)="onRestart()">Restart Quiz</button>
+<div class="result-container">
+  <div class="score">
+    Score: {{ score }} / {{ totalQuestions }}
+  </div>
+  <div class="percentage">
+    Percentage: {{ (score / totalQuestions) * 100 | number:'1.0-0' }}%
+  </div>
+  <div class="message">
+    {{ getResultMessage() }}
+  </div>
+  <button class="restart-button" (click)="onRestart()">Restart Quiz</button>
+  <button class="home-button" (click)="onHome()">Home</button>
+  <div class="suggestions">
+    <h3>Other Topics You Might Like:</h3>
+    <ul>
+      <li *ngFor="let topic of suggestedTopics" (click)="onSelectTopic(topic)">
+        {{ topic }} - Progress: {{ getProgress(topic) }}%
+      </li>
+    </ul>
+  </div>
 </div>
-  
