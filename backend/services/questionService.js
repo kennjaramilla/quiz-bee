@@ -1,10 +1,3 @@
-const express = require('express');
-const cors = require('cors');
-const app = express();
-const port = 3000;
-
-app.use(cors());
-
 const questions = [
   // Creation topic
   { question: 'Who built the ark?', options: ['Noah', 'Moses', 'Abraham', 'David'], answer: 'Noah', difficulty: 1, topic: 'Creation' },
@@ -97,21 +90,32 @@ const questions = [
   { question: 'Who denied Jesus three times?', options: ['Peter', 'Judas', 'John', 'Thomas'], answer: 'Peter', difficulty: 1, topic: 'Bible Characters' },
   { question: 'Who was the first man?', options: ['Adam', 'Noah', 'Abraham', 'David'], answer: 'Adam', difficulty: 1, topic: 'Bible Characters' },
   { question: 'Who was the first woman?', options: ['Eve', 'Sarah', 'Rebekah', 'Rachel'], answer: 'Eve', difficulty: 1, topic: 'Bible Characters' },
-];
+];  
 
-// API endpoint to get questions
-app.get('/api/questions', (req, res) => {
-    res.json(questions);
-});
+const shuffle = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
 
-// Serve the Angular app
-app.use(express.static('dist/quiz')); 
+const shuffleOptions = (question) => {
+  const shuffledOptions = shuffle(question.options.slice());
+  return { ...question, options: shuffledOptions };
+}  
 
-// Fallback to index.html for Angular routing
-app.get('*', (req, res) => {
-    res.sendFile(__dirname + '/dist/quiz/index.html'); // Adjust the path if necessary
-});
+const getShuffledQuestions = (questions, count) => {
+  const shuffledQuestions = shuffle(questions);
+  const selectedQuestions = shuffledQuestions.slice(0, count);
+  return selectedQuestions.sort((a, b) => a.difficulty - b.difficulty).map(q => shuffleOptions(q));
+};
 
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
-});
+exports.getTopics = () => {
+  return [...new Set(questions.map(q => q.topic))];
+};
+
+exports.getQuestionsByTopic = (topic) => {
+  const topicQuestions = questions.filter(q => q.topic === topic);
+  return getShuffledQuestions(topicQuestions, 15);
+};
