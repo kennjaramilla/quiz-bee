@@ -1,0 +1,15 @@
+<div class="summary-container">
+    <h2>{{ topic }} Summary</h2>
+    <ul>
+      <li *ngFor="let answer of userAnswers">
+        <p><strong>Question:</strong> {{ answer.question }}</p>
+        <p><strong>Your Answer:</strong> {{ answer.userAnswer }}</p>
+        <p><strong>Correct Answer:</strong> {{ answer.correctAnswer }}</p>
+        <p><strong>Explanation:</strong> {{ answer.explanation }}</p>
+      </li>
+    </ul>
+    <button (click)="onSummaryComplete()">Next</button>
+    <button (click)="onRestartQuiz()">Restart Quiz</button>
+    <button (click)="onGoToHome()">Home</button>
+  </div>
+  

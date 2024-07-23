@@ -1,18 +1,37 @@
-<div *ngIf="!showResult">
-  <div class="progress-bar-container">
-    <div class="progress-bar" [style.width.%]="progress"></div>
-    <div class="progress-percentage">{{ progress | number: '1.0-0' }}%</div>
+<div class="quiz-container">
+  <h1>{{ topic | titlecase }} Quiz</h1>
+  <div *ngIf="!showResult && !showSummary">
+    <app-question 
+      [@slideIn]
+      [question]="questions[currentQuestionIndex]" 
+      [currentQuestionIndex]="currentQuestionIndex" 
+      [totalQuestions]="questions.length" 
+      (answered)="onAnswer($event)" 
+      (next)="nextQuestion()"
+    ></app-question>
+    <div class="feedback-message">{{ feedbackMessage }}</div>
+    <div class="progress-bar">
+      <div class="progress" [style.width.%]="progress"></div>
+    </div>
   </div>
-  <div *ngIf="feedbackMessage" class="feedback-message" @slideIn>{{ feedbackMessage }}</div>
-  <app-question
-    *ngIf="currentQuestionIndex < questions.length"
-    [question]="questions[currentQuestionIndex]"
-    [currentQuestionIndex]="currentQuestionIndex"
-    [totalQuestions]="questions.length"
-    (answered)="onAnswer($event)"
-    @slideIn
-  ></app-question>
-</div>
-<div *ngIf="showResult">
-  <app-result [score]="score" [totalQuestions]="questions.length" [topic]="topic" (restart)="restart()" (topicSelected)="selectTopic($event)"></app-result>
+  <div *ngIf="showSummary && !showResult">
+    <app-topic-summary
+      [topic]="topic"
+      [questions]="questions"
+      [userAnswers]="userAnswers"
+      (restartQuiz)="restart()"
+      (goToHome)="goToHome()"
+      (summaryComplete)="onSummaryComplete()"
+    ></app-topic-summary>
+  </div>
+  <div *ngIf="showResult">
+    <app-result 
+      [score]="score" 
+      [totalQuestions]="questions.length" 
+      [topic]="topic"
+      (restart)="restart()" 
+      (selectTopic)="selectTopic($event)"
+      (goToHome)="goToHome()"
+    ></app-result>
+  </div>
 </div>

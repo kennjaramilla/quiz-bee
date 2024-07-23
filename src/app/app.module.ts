@@ -8,6 +8,7 @@ import { QuestionComponent } from './question/question.component';
 import { ResultComponent } from './result/result.component';
 import { TopicSelectionComponent } from './topic-selection/topic-selection.component';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import { TopicSummaryComponent } from './topic-summary/topic-summary.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
     QuizComponent,
     QuestionComponent,
     ResultComponent,
-    TopicSelectionComponent
+    TopicSelectionComponent,
+    TopicSummaryComponent
   ],
   imports: [
     BrowserModule,

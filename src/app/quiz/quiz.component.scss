@@ -1,65 +1,31 @@
-.progress-bar-container {
-  height: 10px;
-  background-color: #e0e0e0;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  overflow: hidden;
-  position: relative;
-}
-
-.progress-bar {
-  height: 100%;
-  background-color: #007BFF;
-  transition: width 0.5s;
-}
-
-.progress-percentage {
-  position: absolute;
-  right: 10px;
-  top: -25px;
-  font-size: 14px;
-  color: #007BFF;
-}
-
-.difficulty {
-  font-size: 0.9em;
-  color: #666;
-}
-
-.feedback-message {
-  margin-bottom: 20px;
-  font-size: 1.2em;
-  color: green;
+@import '../../styles/theme.scss';
+.quiz-container {
   text-align: center;
-}
-
-.question {
-  font-size: 1.2em;
-  margin-bottom: 10px;
-}
-
-.options {
-  display: flex;
-  flex-direction: column;
-}
-
-.option {
-  margin: 5px 0;
-  padding: 10px;
-  background-color: #f0f8ff;
-  border: 1px solid #007BFF;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s, color 0.2s;
-
-  &:hover {
-    background-color: #007BFF;
-    color: white;
-  }
-}
-
-.progress {
   margin-top: 20px;
-  font-size: 0.9em;
-  color: #666;
+
+  h1 {
+    font-size: 2.5em;
+    color: $primary-color;
+    margin-bottom: 20px;
+  }
+
+  .feedback-message {
+    font-size: 1.5em;
+    color: $success-color;
+    margin: 20px 0;
+  }
+
+  .progress-bar {
+    width: 100%;
+    background-color: $secondary-light-color;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 20px 0;
+
+    .progress {
+      height: 20px;
+      background-color: $primary-color;
+      transition: width 0.3s ease;
+    }
+  }
 }

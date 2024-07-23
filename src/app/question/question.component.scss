@@ -1,53 +1,96 @@
+@import '../../styles/theme.scss';
+
 .question-container {
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
-  border-radius: 10px;
+  background-color: $secondary-light-color;
+  border-radius: 5px;
   padding: 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  text-align: center;
+  margin: 20px auto;
+  max-width: 600px;
+  text-align: left;
 
-  .question {
+  h2 {
     font-size: 1.5em;
-    margin-bottom: 10px;
-  }
-
-  .difficulty {
-    font-size: 1em;
-    color: #666;
+    color: $primary-dark-color;
     margin-bottom: 20px;
   }
 
-  .options {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 
-    .option {
-      margin: 5px 0;
-      padding: 10px 20px;
-      background-color: #007BFF;
-      border: none;
+    li {
+      background-color: $primary-color;
+      color: $primary-light-color;
+      padding: 15px;
+      margin: 10px 0;
       border-radius: 5px;
-      color: white;
-      font-size: 1em;
       cursor: pointer;
-      transition: background-color 0.2s, transform 0.2s;
+      transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: #0056b3;
-        transform: scale(1.05);
-      }
-
-      &:focus {
-        outline: none;
+        background-color: $primary-dark-color;
       }
     }
   }
 
-  .progress {
+  .explanation {
     margin-top: 20px;
-    font-size: 0.9em;
-    color: #666;
+    font-size: 1.2em;
+    color: $text-color;
+  }
+
+  .feedback-message {
+    font-size: 1.5em;
+    color: $success-color;
+    margin: 20px 0;
+  }
+
+  .progress-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 20px 0;
+
+    .progress-bar {
+      width: 80%;
+      background-color: $secondary-light-color;
+      border-radius: 5px;
+      overflow: hidden;
+      height: 20px;
+
+      .progress {
+        height: 100%;
+        background-color: $primary-color;
+        transition: width 0.3s ease;
+      }
+    }
+
+    .progress-percentage {
+      font-size: 1em;
+      color: $primary-dark-color;
+      width: 20%;
+      text-align: right;
+    }
+  }
+
+  .next-button {
+    background-color: $primary-color;
+    color: $primary-light-color;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 20px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $primary-dark-color;
+    }
+
+    &:disabled {
+      background-color: $secondary-color;
+      cursor: not-allowed;
+    }
   }
 }

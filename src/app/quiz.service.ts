@@ -30,6 +30,7 @@ export class QuizService {
   saveProgress(topic: string, score: number, totalQuestions: number): void {
     if (typeof localStorage !== 'undefined') {
       const progress = Math.round((score / totalQuestions) * 100);
+      console.log('topic', topic);
       localStorage.setItem(`progress_${topic}`, progress.toString());
     }
   }

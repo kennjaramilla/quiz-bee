@@ -1,0 +1,15 @@
+$primary-color: #3498db; // Blue
+$primary-light-color: #ecf7ff; // Light Blue
+$primary-dark-color: #2980b9; // Dark Blue
+$secondary-color: #f1c40f; // Yellow
+$secondary-light-color: #fdf3d4; // Light Yellow
+$text-color: #2c3e50; // Dark Text
+$background-color: #f5f7fa; // Background Light Grey
+$success-color: #27ae60; // Success Green
+$error-color: #e74c3c; // Error Red
+
+body {
+  background-color: $background-color;
+  color: $text-color;
+  font-family: Arial, sans-serif;
+}

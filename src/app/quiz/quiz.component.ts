@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../quiz.service';
 import { Question } from '../question.model';
@@ -8,6 +8,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('slideIn', [
       transition(':enter', [
@@ -25,8 +26,10 @@ export class QuizComponent implements OnInit {
   currentQuestionIndex: number = 0;
   score: number = 0;
   showResult: boolean = false;
+  showSummary: boolean = false;
   topic: string = '';
   feedbackMessage: string = '';
+  userAnswers: { question: string, userAnswer: string, correctAnswer: string, explanation: string }[] = [];
 
   constructor(
     private readonly quizService: QuizService, 
@@ -36,14 +39,15 @@ export class QuizComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.topic = this.route.snapshot.paramMap.get('topic')!;
-    this.loadQuestions(this.topic);
+    this.route.paramMap.subscribe(params => {
+      this.topic = params.get('topic')!;
+      this.loadQuestions(this.topic);
+    });
   }
 
   loadQuestions(topic: string): void {
     this.quizService.getQuestionsByTopic(topic).subscribe((questions: Question[]) => {
       this.changeDetection.markForCheck();
-      
       this.questions = questions;
       this.resetQuiz();
     });
@@ -53,19 +57,36 @@ export class QuizComponent implements OnInit {
     this.currentQuestionIndex = 0;
     this.score = 0;
     this.showResult = false;
+    this.showSummary = false;
     this.feedbackMessage = '';
+    this.userAnswers = [];
   }
 
   onAnswer(option: string) {
-    if (option === this.questions[this.currentQuestionIndex].answer) {
+    const currentQuestion = this.questions[this.currentQuestionIndex];
+    const explanation = "This is a brief explanation for the question."; // Replace with actual explanation logic
+    this.userAnswers.push({
+      question: currentQuestion.question,
+      userAnswer: option,
+      correctAnswer: currentQuestion.answer,
+      explanation: explanation
+    });
+    
+    if (option === currentQuestion.answer) {
       this.score++;
       this.feedbackMessage = 'Correct! Well done!';
     } else {
       this.feedbackMessage = 'Oops! Try the next one.';
     }
+  }
+
+  nextQuestion() {
     this.currentQuestionIndex++;
     if (this.currentQuestionIndex >= this.questions.length) {
-      this.showResult = true;
+      this.showSummary = true;
+      this.quizService.saveProgress(this.topic, this.score, this.questions.length);
+    } else {
+      this.feedbackMessage = '';
     }
   }
 
@@ -80,5 +101,15 @@ export class QuizComponent implements OnInit {
 
   get progress() {
     return (this.currentQuestionIndex / this.questions.length) * 100;
+  }
+
+  goToHome() {
+    this.router.navigate(['/']);
+  }
+
+  onSummaryComplete() {
+    this.showSummary = false;
+    this.showResult = true;
+    this.changeDetection.markForCheck();
   }
 }

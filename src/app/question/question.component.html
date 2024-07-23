@@ -1,14 +1,20 @@
-<div *ngIf="question" @slideIn>
-  <div class="question-container">
-    <div class="question">{{ question.question }}</div>
-    <div class="difficulty">Difficulty: {{ question.difficulty }}</div>
-    <div class="options">
-      <button class="option" *ngFor="let option of question.options" (click)="onAnswer(option)">
-        {{ option }}
-      </button>
+<div class="question-container">
+  <h2>{{ question?.question }}</h2>
+  <ul>
+    <li *ngFor="let option of question?.options" (click)="onAnswer(option)">
+      {{ option }}
+    </li>
+  </ul>
+  <div *ngIf="currentQuestionIndex !== undefined && totalQuestions !== undefined" class="progress-bar-container">
+    <div class="progress-bar">
+      <div class="progress" [style.width.%]="(currentQuestionIndex + 1) / totalQuestions * 100"></div>
     </div>
-    <div class="progress">
-      Question {{ currentQuestionIndex ? currentQuestionIndex + 1 : 0 }} of {{ totalQuestions ? totalQuestions : 0 }}
+    <div class="progress-percentage">
+      {{ ((currentQuestionIndex + 1) / totalQuestions * 100).toFixed(0) }}%
     </div>
   </div>
+  <div class="explanation" *ngIf="questionAnswered">
+    <strong>Explanation:</strong> {{ question?.explanation }}
+  </div>
+  <button class="next-button" (click)="nextQuestion()" [disabled]="!questionAnswered">Next</button>
 </div>

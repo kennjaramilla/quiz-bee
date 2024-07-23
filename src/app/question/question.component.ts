@@ -24,8 +24,17 @@ export class QuestionComponent {
   @Input() currentQuestionIndex: number = 0;
   @Input() totalQuestions: number = 0;
   @Output() answered = new EventEmitter<string>();
+  @Output() next = new EventEmitter<void>();
+
+  questionAnswered: boolean = false;
 
   onAnswer(option: string) {
+    this.questionAnswered = true;
     this.answered.emit(option);
+  }
+
+  nextQuestion() {
+    this.questionAnswered = false;
+    this.next.emit();
   }
 }

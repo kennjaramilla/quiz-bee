@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuizService } from '../quiz.service';
 import { Subject } from 'rxjs';
@@ -15,15 +15,16 @@ export class ResultComponent implements OnDestroy {
   @Input() totalQuestions: number = 0;
   @Input() topic: string = '';
   @Output() restart = new EventEmitter<void>();
-  @Output() topicSelected = new EventEmitter<string>();
+  @Output() selectTopic = new EventEmitter<string>();
+  @Output() goToHome = new EventEmitter<void>();
+
   suggestedTopics: string[] = [];
   private unsubscribe$ = new Subject<void>();
 
   constructor(
-    private readonly quizService: QuizService, 
-    private readonly router: Router,
+    private readonly quizService: QuizService,
     private readonly changeDetection: ChangeDetectorRef
-  ) { 
+  ) {
     this.subscribeToSuggestedTopics();
   }
 
@@ -37,11 +38,11 @@ export class ResultComponent implements OnDestroy {
   }
 
   onSelectTopic(topic: string) {
-    this.router.navigate(['/quiz', topic]);
+    this.selectTopic.emit(topic);
   }
 
-  onHome() {
-    this.router.navigate(['/']);
+  onGoToHome() {
+    this.goToHome.emit();
   }
 
   getResultMessage(): string {
@@ -55,19 +56,13 @@ export class ResultComponent implements OnDestroy {
     }
   }
 
-  getProgress(topic: string): number {
-    return this.quizService.getProgressByTopic(topic);
-  }
-
   private subscribeToSuggestedTopics() {
     this.quizService.getTopics()
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((topics: string[]) => {
         this.changeDetection.markForCheck();
-        
         this.suggestedTopics = topics.filter(t => t !== this.topic);
+        this.quizService.saveProgress(this.topic, this.score, this.totalQuestions);
       });
-
-    this.quizService.saveProgress(this.topic, this.score, this.totalQuestions);
   }
 }

@@ -1,0 +1,13 @@
+@import './styles/theme.scss';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: $primary-light-color;
+  color: $text-color;
+  font-family: Arial, sans-serif;
+}
